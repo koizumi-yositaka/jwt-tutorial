@@ -3,14 +3,15 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: read
+  packages: write
 env:
   REGISTRY: ghcr.io
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4  #githubが提供するcheckout d
