@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  #githubが提供するcheckout d
+        uses: actions/checkout@v4  #githubが提供するcheckout
 
       - name: Docker met
         id: meta
