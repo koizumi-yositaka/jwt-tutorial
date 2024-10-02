@@ -4,6 +4,7 @@ const user=process.env.DB_USER
 const db_pass = process.env.DB_PASS
 
 const getClient=()=>{
+    
     return new pg.Client({
         database: db,
         user,
@@ -37,6 +38,7 @@ const getUserByEmail=async (email)=>{
     var query = 'SELECT * FROM public."t_user" WHERE name=$1'
     var values= [email]
     var client = getClient()
+    console.log("USER",client)
     try{
         await client.connect();
         console.log('Connected to PostgreSQL');
