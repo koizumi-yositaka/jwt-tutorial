@@ -4,7 +4,7 @@ const user=process.env.DB_USER
 const db_pass = process.env.DB_PASS
 
 const getClient=()=>{
-    
+    console.log("DB TEST",db_pass)
     return new pg.Client({
         database: db,
         user,
