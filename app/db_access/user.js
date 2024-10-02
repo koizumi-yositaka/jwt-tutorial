@@ -2,14 +2,14 @@ const pg = require("pg");
 const db = process.env.DB_NAME
 const user=process.env.DB_USER
 const db_pass = process.env.DB_PASS
-
+const db_host = process.env.DB_HOST
 const getClient=()=>{
     console.log("DB TEST",db_pass)
     return new pg.Client({
         database: db,
         user,
         password: db_pass,
-        host: "localhost",
+        host: db_host,
         port: 5434,
     });
 }
