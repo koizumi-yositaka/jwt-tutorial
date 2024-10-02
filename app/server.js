@@ -4,7 +4,7 @@ app.use(express.json())
 const PORT = 5002
 
 app.get("/",(req,res)=>{
-    res.send({aa:"sdfs AAAA 変更した"})
+    res.send({aa:"XXXXX"})
 })
 
 app.listen(PORT,()=>{
