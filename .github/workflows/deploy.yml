@@ -2,8 +2,7 @@ name: deploy
 on: 
   push:
     branches:
-      - main
-      - dev2
+      - "*"
 permissions:
   contents: read
   packages: write
