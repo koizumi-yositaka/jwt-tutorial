@@ -10,6 +10,7 @@ env:
   REGISTRY: ghcr.io
   MANIFEST_REPO: koizumi-yositaka/jwt-tutorial-manifest
   MANIFEST_FILE_PATH: manifest/express-deployment.yml
+  IMAGE_NAME: koizumi-yositaka/jwt-tutorial:latest
 jobs:
   build-and-push-image:
     permissions:
@@ -34,7 +35,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{env.REGISTRY}}/${{github.repository}} 
+          images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}} 
 
       - name: Log in to Git Hub Container Resistory # GitHUb Crへのログイン
         uses: docker/login-action@v3
