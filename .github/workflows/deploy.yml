@@ -75,7 +75,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           commit-message: Update image tag to ${{steps.meta.outputs.tags}}
-          branch: update-image-${{steps.meta.outputs.tags}}  # 作成したブランチ名
+          branch: update-image-AAA  # 作成したブランチ名
           title: "Update image tag to ${{steps.meta.outputs.tags}}"
           body: "This PR updates the image tag in the manifest."
           base: main  # PRのベースブランチ（通常はmainやmaster）
