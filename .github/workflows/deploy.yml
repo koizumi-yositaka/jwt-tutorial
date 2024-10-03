@@ -51,7 +51,7 @@ jobs:
           labels: ${{steps.meta.outputs.labels}} 
       # ここから別のリポジトリのファイルを更
       - name: Clone the manifest repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{env.MANIFEST_REPO}}
           path: manifest-repo
@@ -67,6 +67,6 @@ jobs:
           git config user.email "${{github.actor}}@users.noreply.github.com"
           git add ${{env.MANIFEST_FILE_PATH}}
           git commit -m "Update image tag to ${{steps.meta.outputs.tags}}"
-          git push 
+          git push https://github.com/${{env.MANIFEST_REPO}} HEAD:main
         env:
           GITHUB_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
