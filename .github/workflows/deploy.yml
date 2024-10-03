@@ -57,4 +57,4 @@ jobs:
           git commit -m "Update image tag to ${{steps.meta.outputs.tags}}"
           git push
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
