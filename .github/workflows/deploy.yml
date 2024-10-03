@@ -49,33 +49,3 @@ jobs:
           push: true
           tags: ${{steps.meta.outputs.tags}}    # pr番号
           labels: ${{steps.meta.outputs.labels}} 
-      # ここから別のリポジトリのファイルを更
-      - name: Clone the manifest repository
-        uses: actions/checkout@v4
-        with:
-          repository: ${{env.MANIFEST_REPO}}
-          path: manifest-repo
-
-      - name: Update image tag in manifest
-        run: |
-          sed -i 's|image: ghcr.io/koizumi-yositaka/jwt-tutorial:.*|image: ghcr.io/koizumi-yositaka/jwt-tutorial:${{steps.meta.outputs.tags}}|' manifest-repo/${{env.MANIFEST_FILE_PATH}}
-
-      - name: Commit changes
-        run: |
-          cd manifest-repo
-          git config user.name "${{github.actor}}"
-          git config user.email "${{github.actor}}@users.noreply.github.com"
-          
-          git checkout -b update-image-AAA
-          git add ${{env.MANIFEST_FILE_PATH}}
-          git commit -m "Update image tag to ${{steps.meta.outputs.tags}}"
-      # プルリクエストを作成
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          commit-message: Update image tag to ${{steps.meta.outputs.tags}}
-          branch: update-image-AAA  # 作成したブランチ名
-          title: "Update image tag to ${{steps.meta.outputs.tags}}"
-          body: "This PR updates the image tag in the manifest."
-          base: main  # PRのベースブランチ（通常はmainやmaster）
