@@ -30,13 +30,18 @@ router.post("/login",async (req,res)=>{
             }
         ])
     }else {
-        const user = result.rows[0]
+        const user = result[0]
         if(user.password === password){
             const token = await makeAccessToken({email})
             //Refresh Token発行
             const refreshtoken = await makeRefreshToekn({email})
-
-            res.send({"title":"success","token":token,"rt":refreshtoken})
+            res.cookie("accessToken",token,{
+                httpOnly:true
+            })
+            res.cookie("refreshToken",refreshtoken,{
+                httpOnly:true
+            })
+            res.send({"title":"success"})
         }else{
             return res.status(400).json([
             {

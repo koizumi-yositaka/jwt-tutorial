@@ -1,9 +1,12 @@
 const express = require("express")
+const cookieParser = require('cookie-parser');
+
 const authRouter = require("./routes/auth-router")
 
 
 const app= express()
 app.use(express.json())
+app.use(cookieParser())
 app.use("/auth",authRouter)
 
 const PORT = 5002
