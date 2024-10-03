@@ -65,8 +65,8 @@ jobs:
           cd manifest-repo
           git config user.name "${{github.actor}}"
           git config user.email "${{github.actor}}@users.noreply.github.com"
-          TAG_NAME=${{steps.meta.outputs.tags//:/-}}
-          git checkout -b update-image-${TAG_NAME}
+          
+          git checkout -b update-image-AAA
           git add ${{env.MANIFEST_FILE_PATH}}
           git commit -m "Update image tag to ${{steps.meta.outputs.tags}}"
       # プルリクエストを作成
