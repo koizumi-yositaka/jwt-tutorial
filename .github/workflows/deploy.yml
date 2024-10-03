@@ -63,7 +63,7 @@ jobs:
         run: |
           cd manifest-repo
           git config user.name "${{github.actor}}"
-          git config user.email "${{github.actor}}@users.noreply.github.com"
+          git config user.email "nisikana.suibu318@gmail.com"
           git add ${{env.MANIFEST_FILE_PATH}}
           git commit -m "Update image tag to ${{steps.meta.outputs.tags}}"
           git push https://github.com/${{env.MANIFEST_REPO}} HEAD:main
