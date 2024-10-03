@@ -37,7 +37,7 @@ jobs:
           push: true
           tags: ${{steps.meta.outputs.tags}}    # pr番号
           labels: ${{steps.meta.outputs.labels}} 
-      # ここから別のリポジトリのファイルを更新 
+      # ここから別のリポジトリのファイルを更
       - name: Clone the manifest repository
         uses: actions/checkout@v4
         with:
