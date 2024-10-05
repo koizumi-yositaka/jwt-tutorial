@@ -3,19 +3,27 @@ const {createUser,getAllUsers,getUserByEmail} = require("../db_access/user")
 const {checkToken,setToken} = require("../middleware/check_jwt")
 const {makeAccessToken,makeRefreshToekn} = require("../util/jwt")
 
-router.get("/",[setToken,checkToken],(req,res)=>{
-    res.send({"title":"auth"})
+// router.get("/",[setToken,checkToken],(req,res)=>{
+//     res.send({"title":"auth"})
+// })
+router.get("/",async (req,res)=>{
+    const {email,password} = req.query
+    console.log("eeeeee",email)
+    const rows = await getUserByEmail(email)
+    console.log("rows",rows)
+    res.send({"rows":rows})
 })
-router.post("/",async (req,res)=>{
 
-    // await createUser("FFF","CCC")
-    // //jwt発行
-    // const token = await makeAccessToken({email:"EEE"})
-    // //Refresh Token発行
-    // const refreshtoken = await makeRefreshToekn({email:"EEE"})
-    // // var users = await getAllUsers()
-    // // console.log("users",users)
-    // res.send({"title":"success","token":token,"rt":refreshtoken})
+router.post("/",async (req,res)=>{
+    const {email,password} = req.body
+    await createUser(email,password)
+    //jwt発行
+    const token = await makeAccessToken({email:"EEE"})
+    //Refresh Token発行
+    const refreshtoken = await makeRefreshToekn({email:"EEE"})
+    // var users = await getAllUsers()
+    // console.log("users",users)
+    res.send({"title":"success","token":token,"rt":refreshtoken})
 })
 
 router.post("/login",async (req,res)=>{
