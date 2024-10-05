@@ -34,7 +34,7 @@ const getAllUsers=async ()=>{
 }
 
 const getUserByEmail=async (email)=>{
-    var query = 'SELECT * FROM public."t_user" WHERE name=$1'
+    var query = 'SELECT * FROM public."t_user" WHERE email=$1'
     var values= [email]
     var client = getClient()
     try{
@@ -57,7 +57,7 @@ const createUser=async (name,pass)=>{
     var client = getClient()
     try{
 
-        var text = 'INSERT INTO public."t_user" ("name","password") VALUES($1, $2)'
+        var text = 'INSERT INTO public."t_user" ("email","password") VALUES($1, $2)'
         var values= [name,pass]
         await client.connect();
         console.log('Connected to PostgreSQL');
