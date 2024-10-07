@@ -1,4 +1,6 @@
 const pg = require("pg");
+
+
 const db = process.env.DB_NAME
 const user=process.env.DB_USER
 const db_pass = process.env.DB_PASS
@@ -32,7 +34,10 @@ const getAllUsers=async ()=>{
         console.log('Disconnected from PostgreSQL');
     }
 }
-
+const isExistEmail = async(email)=>{
+    const rows = await getUserByEmail(email)
+    return rows.length > 0
+}
 const getUserByEmail=async (email)=>{
     var query = 'SELECT * FROM public."t_user" WHERE email=$1'
     var values= [email]
@@ -75,4 +80,4 @@ const createUser=async (name,pass)=>{
     }
 }
 
-module.exports={getAllUsers,createUser,getUserByEmail}
+module.exports={getAllUsers,createUser,getUserByEmail,isExistEmail}

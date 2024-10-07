@@ -21,6 +21,7 @@ const makeAccessToken=async (target)=>{
 }
 
 const makeRefreshToekn=async(target)=>{
+    console.log("target",jwtSecret,refreshJwtOptions)
     const token = await JWT.sign(
         target,
         jwtSecret,

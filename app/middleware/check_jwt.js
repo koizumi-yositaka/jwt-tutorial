@@ -1,10 +1,12 @@
-const {makeAccessToken,makeRefreshToekn,verify} = require("../util/jwt")
-const {getUserByEmail} = require("../db_access/user")
+const {verify,makeAccessToken} = require("../util/jwt")
+const {isExistEmail} =require("../db_access/user")
 
-const setToken=async(req,res,next)=>{
-    // const token=req.header("x-auth-token")
+
+
+const checkToken=async(req,res,next)=>{
     const token=req.cookies.accessToken
     const refreshtoken=req.cookies.refreshToken
+    console.log("checkTOken",token,refreshtoken)
     if(!token && !refreshtoken){
         return res.status(400).json([
             {
@@ -12,56 +14,77 @@ const setToken=async(req,res,next)=>{
             }
         ])
     }
+
     try{
         const decoded = await verify(token)
-        
-        // req.header["x-auth-token"]=token
         next()
+        return
+        
     }catch (err) {
         if(!refreshtoken){
             return res.status(400).json([
                 {
-                    message:"リフレッシュトークンがない"
+                    message:"rtokenがない"
                 }
             ])
         }
     
         try{
-            let {email} = await verify(refreshtoken)
-            const newToken=await makeAccessToken({email})
-            console.log("リフレッシュの使用")
-            res.cookie("accessToken",newToken,{
-                httpOnly:true
-            })
-            next();
+            console.log("refresh")
+            const {email} = await verify(refreshtoken)
+            console.log("email",email)
+            const isExist= await isExistEmail(email)
+            if(isExist){
+                
+                const newToken = await makeAccessToken({email})
+                res.cookie("accessToken",newToken,{
+                    httpOnly:true,
+                    maxAge: 24 * 60 * 60 * 1000, // 1日 (ミリ秒単位)
+                    secure:false,
+                    sameSite:"none"
+                })
+                next()
+                return
+            }else{
+                return res.status(400).json([
+                    {
+                        message:"ユーザがいない"
+                    }
+                ])
+            }
+                
+            
+
 
         }catch(err){
-            console.log("erro",err)
+            console.log(err)
             return res.status(400).json([
                 {
-                    message:"アクセストークンの生成失敗"
+                    message:"トークンの生成の失敗お"
                 }
             ])
         }
     }
+
 }
 
-const checkToken=async(req,res,next)=>{
-    const token=req.cookies.accessToken
-    console.log("tokeb",token)
-    const decoded=await verify(token)
-    console.log("decoded",decoded)
-    const users =await getUserByEmail(decoded.email)
-    if(users && users.length >0){
-        console.log("OK")
-        next()
-    }else{
-        return res.status(400).json([
-            {
-                message:"認証エラー"
-            }
-        ])
-    }
-}
+module.exports=checkToken
 
-module.exports={setToken,checkToken}
+
+// const checkToken=async(req,res,next)=>{
+//     const token=req.cookies.accessToken
+//     console.log("tokeb",token)
+//     const decoded=await verify(token)
+//     console.log("decoded",decoded)
+//     const isExist =await isExistEmail(decoded.email)
+//     if(isExist){
+//         console.log("OK")
+//         next()
+//     }else{
+//         return res.status(400).json([
+//             {
+//                 message:"認証エラー"
+//             }
+//         ])
+//     }
+// }
