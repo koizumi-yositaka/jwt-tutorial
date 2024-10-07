@@ -27,5 +27,5 @@ app.get("/health",checkToken,(req,res)=>{
 })  
 
 app.listen(PORT,()=>{
-    console.log("server run　２")
+    console.log("server run2",process.env.REACT_PORT)
 })
