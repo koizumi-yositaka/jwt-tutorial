@@ -13,16 +13,16 @@ app.use(cors({
     origin:`http://localhost:${process.env.REACT_PORT}`,
     credentials:true
 }))
-app.use("/users",userRouter)
-app.use("/hoge",hogeRouter)
+app.use("/api/users",userRouter)
+app.use("/api/hoge",hogeRouter)
 
 const PORT = 8081
 
-app.get("/",(req,res)=>{
+app.get("/api",(req,res)=>{
     res.send({aa:process.env.REACT_PORT})
 })
 
-app.get("/health",checkToken,(req,res)=>{
+app.get("/api/health",checkToken,(req,res)=>{
     res.status(200).send({"state":"ok"})
 })  
 
