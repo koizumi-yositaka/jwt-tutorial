@@ -16,7 +16,7 @@ app.use(cors({
 app.use("/users",userRouter)
 app.use("/hoge",hogeRouter)
 
-const PORT = 5002
+const PORT = 8081
 
 app.get("/",(req,res)=>{
     res.send({aa:process.env.REACT_PORT})
@@ -29,3 +29,5 @@ app.get("/health",checkToken,(req,res)=>{
 app.listen(PORT,()=>{
     console.log("server run2",process.env.REACT_PORT)
 })
+
+
