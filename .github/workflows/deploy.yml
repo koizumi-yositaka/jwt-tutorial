@@ -13,6 +13,8 @@ env:
   IMAGE_NAME: koizumi-yositaka/jwt-tutorial
 jobs:
   build-and-push-image:
+    outputs:
+      IMAGE_NAME: ${{steps.meta.outputs.tags}}
     permissions:
       actions: write
       checks: write
@@ -48,7 +50,7 @@ jobs:
         with: 
           context: ./app
           push: true
-          tags: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:latest
+          tags: ${{steps.meta.outputs.tags}}    # pr番号
           labels: ${{steps.meta.outputs.labels}} 
   update-other-repo:
     runs-on: ubuntu-latest
