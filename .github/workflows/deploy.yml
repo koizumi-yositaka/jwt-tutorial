@@ -50,3 +50,38 @@ jobs:
           push: true
           tags: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:latest
           labels: ${{steps.meta.outputs.labels}} 
+  update-other-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{env.MANIFEST_REPO}}
+          token: ${{ secrets.TGT_REPO_PAT }}
+          ref: main
+          path: target-repo
+
+      - name: Update files
+        run: |
+          cd target-repo
+          echo "追加の内容" >> README.md
+
+      - name: Commit and push changes
+        run: |
+          cd target-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b update-from-action
+          git add .
+          git commit -m "GitHub Actions によるファイル更新"
+          git push origin update-from-action
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.TGT_REPO_PAT }}
+          repository:  ${{env.MANIFEST_REPO}}
+          source_branch: update-from-action
+          target_branch: main
+          title: "GitHub Actions によるファイル更新"
+          body: "このプルリクエストは GitHub Actions によって自動的に作成されました。"
