@@ -37,7 +37,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{env.REGISTRY}}/${{github.repository}} 
+          images: ${{env.REGISTRY}}/${{github.repository}}:${{github.run_id}}
 
 
       - name: Log in to Git Hub Container Resistory # GitHUb Crへのログイン
