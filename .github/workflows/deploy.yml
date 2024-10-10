@@ -52,9 +52,6 @@ jobs:
           labels: ${{steps.meta.outputs.labels}} 
   update-other-repo:
     runs-on: ubuntu-latest
-    env:
-      MANIFEST_REPO: ${{ env.MANIFEST_REPO }}
-      BRANCH_NAME: auto-update-${{ github.run_id }}
     steps:
       - name: Checkout target repository
         uses: actions/checkout@v3
@@ -70,31 +67,25 @@ jobs:
           echo "追加の内容" >> README.md
 
       - name: Commit and push changes
-        env:
-          BRANCH_NAME: ${{ env.BRANCH_NAME }}
         run: |
           cd manifest
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH_NAME"
+          BRANCH_NAME=auto-update-${{ github.run_id }}
+          git checkout -b $BRANCH_NAME
           git add .
           git commit -m "GitHub Actions によるファイル更新"
-          git push origin "$BRANCH_NAME"
+          git push origin $BRANCH_NAME
 
       - name: Authenticate GitHub CLI
-        env:
-          GITHUB_TOKEN: ${{ secrets.TGT_REPO_PAT }}
-        run: |
-          gh auth login --with-token <<< "$GITHUB_TOKEN"
+        run: echo "${{ secrets.TGT_REPO_PAT }}" | gh auth login --with-token
 
       - name: Create Pull Request
-        env:
-          MANIFEST_REPO: ${{ env.MANIFEST_REPO }}
-          BRANCH_NAME: ${{ env.BRANCH_NAME }}
         run: |
+          BRANCH_NAME=auto-update-${{ github.run_id }}
           gh pr create \
-            --repo "$MANIFEST_REPO" \
-            --head "$BRANCH_NAME" \
-            --base "main" \
+            --repo "${{ env.MANIFEST_REPO }}" \
+            --head $BRANCH_NAME \
+            --base main \
             --title "GitHub Actions によるファイル更新" \
             --body "このプルリクエストは GitHub Actions によって自動的に作成されました。"
