@@ -68,7 +68,7 @@ jobs:
       - name: Update files
         run: |
           cd manifest
-          yq -i "(.spec.template.spec.containers[] | select(.name==\"express-app\")).image=\"${{needs.build-and-push-image.outputs.IMAGE_NAME}}${{github.run_id}}\"" manifest/express/express-deployment.yaml
+          yq -i "(.spec.template.spec.containers[] | select(.name==\"express-app\")).image=\"${{needs.build-and-push-image.outputs.IMAGE_NAME}}${{github.run_id}}\"" manifest/express/express-deployment.yml
           echo ${{needs.build-and-push-image.outputs.IMAGE_NAME}} >> README.md
 
       - name: Commit and push changes
