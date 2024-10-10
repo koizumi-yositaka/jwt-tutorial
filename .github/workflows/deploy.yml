@@ -60,6 +60,7 @@ jobs:
           token: ${{ secrets.TGT_REPO_PAT }}
           ref: main
           path: manifest
+          branch: auto-update-${{ github.run_id }}
 
       - name: Update files
         run: |
@@ -71,10 +72,9 @@ jobs:
           cd manifest
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b update-from-action
           git add .
           git commit -m "GitHub Actions によるファイル更新"
-          git push origin update-from-action
+
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
