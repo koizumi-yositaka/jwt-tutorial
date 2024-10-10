@@ -77,9 +77,6 @@ jobs:
           git commit -m "GitHub Actions によるファイル更新"
           git push origin $BRANCH_NAME
 
-      - name: Install GitHub CLI
-        uses: actions/setup-gh@v3
-
       - name: Authenticate GitHub CLI
         run: echo "${{ secrets.TGT_REPO_PAT }}" | gh auth login --with-token
 
