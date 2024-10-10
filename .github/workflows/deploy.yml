@@ -59,11 +59,11 @@ jobs:
           repository: ${{env.MANIFEST_REPO}}
           token: ${{ secrets.TGT_REPO_PAT }}
           ref: main
-          path: target-repo
+          path: manifest
 
       - name: Update files
         run: |
-          cd target-repo
+          cd manifest
           echo "追加の内容" >> README.md
 
       - name: Commit and push changes
