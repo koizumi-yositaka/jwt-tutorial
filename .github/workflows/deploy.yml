@@ -37,7 +37,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{env.REGISTRY}}/${{github.repository}}:${{github.run_id}}
+          images: ${{env.REGISTRY}}/${{github.repository}}
 
 
       - name: Log in to Git Hub Container Resistory # GitHUb Crへのログイン
@@ -51,7 +51,7 @@ jobs:
         with: 
           context: ./app
           push: true
-          tags: ${{steps.meta.outputs.tags}}    # pr番号
+          tags: ${{steps.meta.outputs.tags}}${{github.run_id}}    
           labels: ${{steps.meta.outputs.labels}} 
   update-other-repo:
     runs-on: ubuntu-latest
