@@ -15,9 +15,10 @@ const isExistEmail = async(email)=>{
     return rows.length > 0
 }
 const getUserByEmail=async (email)=>{
-    const user = await UserModel.find({email})
+    const users = await UserModel.find({email})
     try{
-        console.log("user",user)
+        console.log("user",users)
+        return users
     }catch(err){
         console.log(err)
     }
