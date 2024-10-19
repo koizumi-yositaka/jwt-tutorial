@@ -1,5 +1,6 @@
 const router = require("express").Router()
-const {createUser,isExistEmail,getUserByEmail} = require("../db_access/user")
+const {createUser,isExistEmail,getUserByEmail,getAllUsers
+} = require("../db_access/user")
 const {makeAccessToken,makeRefreshToekn} = require("../util/jwt")
 
 // router.get("/",[setToken,checkToken],(req,res)=>{
@@ -10,6 +11,13 @@ router.get("/",async (req,res)=>{
     console.log("eeeeee",email)
     const isExist = await isExistEmail(email)
     res.send({"isExist":isExist})
+})
+
+router.get("/test",async (req,res)=>{
+    await createUser("xxxx","yyyy")
+    await getAllUsers()
+    await getUserByEmail("xxxx")
+    res.send({"isExist":"sss"})
 })
 
 router.post("/singup",async (req,res)=>{
