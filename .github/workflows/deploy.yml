@@ -1,8 +1,12 @@
 name: deploy
 on: 
-  push:
+  pull_request:
+    types: [opened, reopened]
     branches:
-      - "main"
+      - 'main'
+    paths: 
+      - 'app/**'
+      - .github/workflows/deploy.yml
 permissions:
   contents: read
   packages: write
