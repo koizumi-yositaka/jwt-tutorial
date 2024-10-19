@@ -62,7 +62,7 @@ jobs:
         with:
           repository: ${{ env.MANIFEST_REPO }}
           token: ${{ secrets.TGT_REPO_PAT }}
-          ref: main
+          ref: dev
           path: manifest
 
       - name: Update files
@@ -91,6 +91,6 @@ jobs:
           gh pr create \
             --repo "${{ env.MANIFEST_REPO }}" \
             --head $BRANCH_NAME \
-            --base main \
+            --base dev \
             --title "GitHub Actions によるファイル更新" \
             --body "このプルリクエストは GitHub Actions によって自動的に作成されました。"
