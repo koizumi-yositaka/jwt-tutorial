@@ -2,12 +2,6 @@ name: deploy
 on: 
   push:
     branches:
-      - 'devlopment'
-    paths: 
-      - 'app/**'
-      - .github/workflows/deploy.yml
-  push:
-    branches:
       - 'development'
     paths: 
       - 'app/**'
