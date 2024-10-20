@@ -37,7 +37,7 @@ app.get("/api/health",checkToken,(req,res)=>{
 })  
 
 app.listen(PORT,()=>{
-    console.log("server run",process.env.REACT_PORT)
+    console.log("server run ver2",process.env.REACT_PORT)
 })
 
 
