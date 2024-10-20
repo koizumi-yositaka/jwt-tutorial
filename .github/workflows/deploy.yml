@@ -1,12 +1,5 @@
 name: deploy
 on: 
-  pull_request:
-    types: [opened, reopened]
-    branches:
-      - 'devlopment'
-    paths: 
-      - 'app/**'
-      - .github/workflows/deploy.yml
   push:
     branches:
       - 'devlopment'
