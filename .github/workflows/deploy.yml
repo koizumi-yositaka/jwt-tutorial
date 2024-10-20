@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, reopened]
     branches:
-      - 'main'
+      - 'devlopment'
     paths: 
       - 'app/**'
       - .github/workflows/deploy.yml
