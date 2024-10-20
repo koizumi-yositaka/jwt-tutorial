@@ -33,11 +33,11 @@ app.get("/api",(req,res)=>{
 })
 
 app.get("/api/health",checkToken,(req,res)=>{
-    res.status(200).send({"state":"ok"})
+    res.status(200).send({"state":"OK"})
 })  
 
 app.listen(PORT,()=>{
-    console.log("server run2",process.env.REACT_PORT)
+    console.log("server run ver2",process.env.REACT_PORT)
 })
 
 
