@@ -15,7 +15,19 @@ env:
   MANIFEST_FILE_PATH: manifest/express-deployment.yml
   IMAGE_NAME: koizumi-yositaka/jwt-tutorial
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Show coverage
+        run: npm test
   build-and-push-image:
+    needs: [test]
     outputs:
       IMAGE_NAME: ${{steps.meta.outputs.tags}}
     permissions:
