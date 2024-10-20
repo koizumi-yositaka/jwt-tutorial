@@ -7,6 +7,12 @@ on:
     paths: 
       - 'app/**'
       - .github/workflows/deploy.yml
+  push:
+    branches:
+      - 'devlopment'
+    paths: 
+      - 'app/**'
+      - .github/workflows/deploy.yml
 permissions:
   contents: read
   packages: write
