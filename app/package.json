@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "env-cmd -f .env jest --detectOpenHandles",
+    "test": "env-cmd -f .env.test2 jest --detectOpenHandles",
     "start": "nodemon server.js",
     "start-local": "env-cmd -f .env nodemon server.js"
   },

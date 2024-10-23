@@ -1,7 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const checkToken = require("./middleware/check_jwt");
 const userRouter = require("./routes/user-router");
 const hogeRouter = require("./routes/hoge-router");
@@ -15,12 +14,6 @@ app.use(
     credentials: true,
   })
 );
-
-mongoose
-  .connect(process.env.DB_CONN)
-  .then(() => console.log("DB_CONNECT_SUCCESS"))
-  .catch((err) => console.log(err));
-
 app.use("/api/users", userRouter);
 app.use("/api/hoge", hogeRouter);
 
