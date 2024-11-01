@@ -6,5 +6,5 @@ mongoose
   .then(() => console.log("DB_CONNECT_SUCCESS"))
   .catch((err) => console.log(err));
 app.listen(PORT, () => {
-  console.log("server run ver2", process.env.REACT_PORT);
+  console.log("server run ver2", process.env.YAHOO_APP_ID);
 });
