@@ -4,6 +4,7 @@ const cors = require("cors");
 const checkToken = require("./middleware/check_jwt");
 const userRouter = require("./routes/user-router");
 const hogeRouter = require("./routes/hoge-router");
+const locationRouter = require("./routes/location-router");
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use(
 );
 app.use("/api/users", userRouter);
 app.use("/api/hoge", hogeRouter);
+app.use("/api/location", locationRouter);
 
 app.get("/api", (req, res) => {
     try{
